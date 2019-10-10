@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
 using ExileCore;
@@ -14,25 +15,21 @@ using ExileCore.Shared.Enums;
 using ExileCore.Shared.Helpers;
 using SharpDX;
 
-
 namespace DelveWalls
 {
     public class DelveWalls : BaseSettingsPlugin<Settings>
     {
-        private IngameUIElements IngameUI;
-
+        private IngameUIElements _inGameUi;
 
         public override void OnLoad()
         {
-
         }
 
         public override bool Initialise()
         {
-            IngameUI = GameController.IngameState.IngameUi;
+            _inGameUi = GameController.IngameState.IngameUi;
             return true;
         }
-
 
         public override void Render()
         {
@@ -44,51 +41,40 @@ namespace DelveWalls
                 return;
             if (GameController.IsLoading)
                 return;
-            if (IngameUI.StashElement.IsVisible)
+            if (_inGameUi.StashElement.IsVisible)
                 return;
-            if (IngameUI.InventoryPanel.IsVisible)
+            if (_inGameUi.InventoryPanel.IsVisible)
                 return;
-            if (IngameUI.OpenLeftPanel.IsVisible)
+            if (_inGameUi.OpenLeftPanel.IsVisible)
                 return;
-            if (IngameUI.OpenRightPanel.IsVisible)
+            if (_inGameUi.OpenRightPanel.IsVisible)
                 return;
 
-            var entites = GameController.Entities;
-            foreach (Entity e in entites )
+            var entities = GameController.Entities;
+            if (entities == null)
+                return;
+            foreach (var e in entities)
             {
-                
-                if (e.Path.Contains("DelveWall"))
-                    wall(e);
+                if (e.Path.Contains("DelveWall") && DrawArrow(e))
+                {
+                    return;
+                }
             }
-            // Run tests done. now the Plugin 
-
         }
 
-        public void wall (Entity e)
+        public bool DrawArrow (Entity e)
         {
-            if (e.IsAlive)
-            {
-
-                Vector2 delta = e.GridPos - GameController.Player.GridPos;
-                double phi;
-                double distance = delta.GetPolarCoordinates(out phi);
-                if (distance > 250) return;
-                RectangleF Dir = MathHepler.GetDirectionsUV(phi, distance);
-
-                //LogMessage($"Wall close Distance {distance}  Direction {Dir}", 1);
-
-                RectangleF rect = GameController.Window.GetWindowRectangle();
-                Vector2 center = new Vector2(rect.X + rect.Width / 2, rect.Height - 10);
-
-                center = GameController.Game.IngameState.Camera.WorldToScreen(GameController.Player.Pos);
-
-                RectangleF rectDirection = new RectangleF(center.X-20, center.Y-40, 40, 40);
-
-                Graphics.DrawImage("directions.png", rectDirection, Dir, Color.LightGreen);
-            }
-
-
+            if (!e.IsAlive)
+                return false;
+            var delta = e.GridPos - GameController.Player.GridPos;
+            var distance = delta.GetPolarCoordinates(out var phi);
+            if (distance > 250) return false;
+            var dir = MathHepler.GetDirectionsUV(phi, distance);
+            //LogMessage($"Wall close Distance {distance}  Direction {Dir}", 1);
+            var center = new Vector2(960, 540);
+            var rectDirection = new RectangleF(center.X-20, center.Y-40, 40, 40);
+            Graphics.DrawImage("directions.png", rectDirection, dir, Color.LightGreen);
+            return true;
         }
-
     }
 }
