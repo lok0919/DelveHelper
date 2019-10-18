@@ -40,6 +40,9 @@ namespace DelveWalls
                 return;
             if (_inGameUi.OpenRightPanel.IsVisible)
                 return;
+            if (_inGameUi.DelveWindow.IsVisible)
+                return;
+
 
             var entities = GameController.Entities;
 
@@ -72,19 +75,21 @@ namespace DelveWalls
 
             var delta = e.GridPos - GameController.Player.GridPos;
             var distance = delta.GetPolarCoordinates(out var phi);
-            if (distance > 175) return false;
+            if (distance > 190) return false;
             var dir = MathHepler.GetDirectionsUV(phi, distance);
             //LogMessage($"Wall close Distance {distance}  Direction {Dir}", 1);
             var center = new Vector2(960, 540);
-            var rectDirection = new RectangleF(center.X - 20, center.Y - 40, 40, 40);
+            var rectDirection = new RectangleF(center.X - 20, center.Y - 40, 50, 50); // 50,50 refer-s to size of arrow icon
 
 
-            // If node contains X or Y then change direction color.
+            // If node contains X or Y chests/walls then change direction arrow color.
             if (e.Path.Contains("Fossil")
                 || e.Path.Contains("Unique"))
             {
                 Graphics.DrawImage("directions.png", rectDirection, dir, Settings.UniqueFossilColor);
             }
+
+            // Rich, Pure azurite nodes
             if (e.Path.Contains("1_2")
                 || e.Path.Contains("1_3")
                 || e.Path.Contains("2_1"))
