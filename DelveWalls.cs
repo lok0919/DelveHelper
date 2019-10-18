@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
-using ExileCore;
-using ExileCore.PoEMemory.Components;
-using ExileCore.PoEMemory.Elements;
-using ExileCore.PoEMemory.Elements.InventoryElements;
+﻿using ExileCore;
 using ExileCore.PoEMemory.MemoryObjects;
-using ExileCore.PoEMemory.Models;
-using ExileCore.Shared;
-using ExileCore.Shared.Abstract;
-using ExileCore.Shared.Enums;
 using ExileCore.Shared.Helpers;
 using SharpDX;
 
+
 namespace DelveWalls
 {
+
     public class DelveWalls : BaseSettingsPlugin<Settings>
     {
+
         private IngameUIElements _inGameUi;
 
         public override void OnLoad()
@@ -51,29 +42,72 @@ namespace DelveWalls
                 return;
 
             var entities = GameController.Entities;
+
             if (entities == null)
                 return;
             foreach (var e in entities)
             {
-                if (e.Path.Contains("DelveWall") && DrawArrow(e))
+                if (e.Path.Contains("Resonator") && DrawArrow(e)
+                    || e.Path.Contains("2_1") && DrawArrow(e)
+                    || e.Path.Contains("1_2") && DrawArrow(e)
+                    || e.Path.Contains("1_3") && DrawArrow(e)
+                    || e.Path.Contains("Fossil") && DrawArrow(e)
+                    || e.Path.Contains("Unique") && DrawArrow(e)
+                    || e.Path.Contains("Currency") && DrawArrow(e)
+                    || e.Path.Contains("DelveWall") && DrawArrow(e))
                 {
                     return;
                 }
+
+
             }
         }
 
-        public bool DrawArrow (Entity e)
+        public bool DrawArrow(Entity e)
         {
-            if (!e.IsAlive)
+            //    If chest is closed, show arrow. If chest is open, don't show arrow.
+                if (!e.IsTargetable)
                 return false;
+
+
             var delta = e.GridPos - GameController.Player.GridPos;
             var distance = delta.GetPolarCoordinates(out var phi);
-            if (distance > 250) return false;
+            if (distance > 175) return false;
             var dir = MathHepler.GetDirectionsUV(phi, distance);
             //LogMessage($"Wall close Distance {distance}  Direction {Dir}", 1);
             var center = new Vector2(960, 540);
-            var rectDirection = new RectangleF(center.X-20, center.Y-40, 40, 40);
-            Graphics.DrawImage("directions.png", rectDirection, dir, Color.LightGreen);
+            var rectDirection = new RectangleF(center.X - 20, center.Y - 40, 40, 40);
+
+
+            // If node contains X or Y then change direction color.
+            if (e.Path.Contains("Fossil")
+                || e.Path.Contains("Unique"))
+            {
+                Graphics.DrawImage("directions.png", rectDirection, dir, Settings.UniqueFossilColor);
+            }
+            if (e.Path.Contains("1_2")
+                || e.Path.Contains("1_3")
+                || e.Path.Contains("2_1"))
+            {
+                Graphics.DrawImage("directions.png", rectDirection, dir, Settings.AzuriteColor);
+            }
+
+            if (e.Path.Contains("Resonator"))
+
+            {
+                Graphics.DrawImage("directions.png", rectDirection, dir, Settings.ResColor);
+            }
+
+            if (e.Path.Contains("Currency"))
+
+            {
+                Graphics.DrawImage("directions.png", rectDirection, dir, Settings.CurrencyColor);
+            }
+
+            if (e.Path.Contains("DelveWall"))
+            {
+                Graphics.DrawImage("directions.png", rectDirection, dir, Settings.WallColor);
+            }
             return true;
         }
     }
