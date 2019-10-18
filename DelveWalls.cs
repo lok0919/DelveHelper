@@ -86,7 +86,7 @@ namespace DelveWalls
             if (e.Path.Contains("Fossil")
                 || e.Path.Contains("Unique"))
             {
-                Graphics.DrawImage("directions.png", rectDirection,- dir, Settings.UniqueFossilColor);
+                Graphics.DrawImage("directions.png", rectDirection, dir, Settings.UniqueFossilColor);
             }
 
             // Rich, Pure azurite nodes
