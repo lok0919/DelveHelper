@@ -21,9 +21,9 @@ namespace DelveWalls
         [Menu("Delve Wall Color")]
         public ColorNode WallColor { get; set; } = new ColorNode(Color.Purple);
         [Menu("Position X")]
-        public RangeNode<int> PosX { get; set; } = new RangeNode<int>(960, 480, 1280);
+        public RangeNode<int> PosX { get; set; } = new RangeNode<int>(960, 0, 2560);
         [Menu("Position Y")]
-        public RangeNode<int> PosY { get; set; } = new RangeNode<int>(540, 270, 720);
+        public RangeNode<int> PosY { get; set; } = new RangeNode<int>(540, 0, 1440);
         [Menu("Arrow Size")]
         public RangeNode<int> ArrowSize { get; set; } = new RangeNode<int>(40, 20, 80);
 
