@@ -78,11 +78,13 @@ namespace DelveWalls
             if (distance > 200) return false;
             var dir = MathHepler.GetDirectionsUV(phi, distance);
             //LogMessage($"Wall close Distance {distance}  Direction {Dir}", 1);
-            var center = new Vector2(960, 540);
-            var rectDirection = new RectangleF(center.X - 20, center.Y - 40, 40, 40); // Last 40,40 refer-s to size of arrow icon
+           
+            var center = new Vector2(Settings.PosX, Settings.PosY); // Resolution halfed. 960 x 2 = 1920 (1080p)
+
+            var rectDirection = new RectangleF(center.X -20, center.Y -40, 40, 40); // Last 40,40 refers to size of arrow icon
 
 
-            // If node contains X or Y chests/walls then change direction arrow color.
+            // If node contains X or Y chests/walls then change direction arrow color.-
             if (e.Path.Contains("Fossil")
                 || e.Path.Contains("Unique"))
             {
