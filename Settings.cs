@@ -24,7 +24,10 @@ namespace DelveWalls
         public RangeNode<int> PosX { get; set; } = new RangeNode<int>(960, 480, 1280);
         [Menu("Position Y")]
         public RangeNode<int> PosY { get; set; } = new RangeNode<int>(540, 270, 720);
-        
+        [Menu("Arrow Size")]
+        public RangeNode<int> ArrowSize { get; set; } = new RangeNode<int>(40, 20, 80);
+
+
         public Settings()
         {
             Enable = new ToggleNode(true);

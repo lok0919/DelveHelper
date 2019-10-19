@@ -81,10 +81,10 @@ namespace DelveWalls
            
             var center = new Vector2(Settings.PosX, Settings.PosY); // Resolution halfed. 960 x 2 = 1920 (1080p)
 
-            var rectDirection = new RectangleF(center.X -20, center.Y -40, 40, 40); // Last 40,40 refers to size of arrow icon
+            var rectDirection = new RectangleF(center.X -20, center.Y -40, Settings.ArrowSize, Settings.ArrowSize); // Last 40,40 refers to size of arrow icon
 
 
-            // If node contains X or Y chests/walls then change direction arrow color.-
+            // If node contains X or Y chests/walls then change direction arrow color.
             if (e.Path.Contains("Fossil")
                 || e.Path.Contains("Unique"))
             {
