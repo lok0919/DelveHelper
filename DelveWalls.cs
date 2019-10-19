@@ -42,7 +42,8 @@ namespace DelveWalls
                 return;
             if (_inGameUi.DelveWindow.IsVisible)
                 return;
-
+         //   if (GameController.Area.CurrentArea.Name.Contains("Azurite Mine"))
+         //       Placeholder for Restricted Area later
 
             var entities = GameController.Entities;
 
@@ -57,7 +58,9 @@ namespace DelveWalls
                     || e.Path.Contains("Fossil") && DrawArrow(e)
                     || e.Path.Contains("Unique") && DrawArrow(e)
                     || e.Path.Contains("Currency") && DrawArrow(e)
-                    || e.Path.Contains("DelveWall") && DrawArrow(e))
+                    || e.Path.Contains("DelveWall") && DrawArrow(e)
+                    || e.Path.Contains("DelveMiningSuppliesFlares") && DrawArrow(e)
+                    || e.Path.Contains("DelveMiningSuppliesDynamite") && DrawArrow(e))
                 {
                     return;
                 }
@@ -115,6 +118,13 @@ namespace DelveWalls
             {
                 Graphics.DrawImage("directions.png", rectDirection, dir, Settings.WallColor);
             }
+
+            if (e.Path.Contains("DelveMiningSuppliesFlares")
+                || e.Path.Contains("DelveMiningSuppliesDynamite"))
+            {
+                Graphics.DrawImage("directions.png", rectDirection, dir, Settings.FlaDynColor);
+            }
+
             return true;
         }
     }
