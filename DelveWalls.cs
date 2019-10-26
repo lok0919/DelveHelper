@@ -78,7 +78,7 @@ namespace DelveWalls
 
             var delta = e.GridPos - GameController.Player.GridPos;
             var distance = delta.GetPolarCoordinates(out var phi);
-            if (distance > 200) return false;
+            if (distance > Settings.Dist) return false;
             var dir = MathHepler.GetDirectionsUV(phi, distance);
             //LogMessage($"Wall close Distance {distance}  Direction {Dir}", 1);
            

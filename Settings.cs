@@ -28,7 +28,8 @@ namespace DelveWalls
         public RangeNode<int> PosY { get; set; } = new RangeNode<int>(540, 0, 1440);
         [Menu("Arrow Size")]
         public RangeNode<int> ArrowSize { get; set; } = new RangeNode<int>(40, 20, 80);
-
+        [Menu("Distance Alert")]
+        public RangeNode<int> Dist { get; set; } = new RangeNode<int>(150, 50, 300);
 
         public Settings()
         {
