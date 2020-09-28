@@ -20,11 +20,11 @@ namespace DelveWalls
         public ColorNode ResColor { get; set; } = new ColorNode(Color.Gray);
         [Menu("Delve Wall Color")]
         public ColorNode WallColor { get; set; } = new ColorNode(Color.Purple);
-        [Menu("Flares / Dynamite")]
+        [Menu("Flares / Dynamite Color")]
         public ColorNode FlaDynColor { get; set; } = new ColorNode(Color.Red);
-        [Menu("Position X")]
+        [Menu("Arrow Position X")]
         public RangeNode<int> PosX { get; set; } = new RangeNode<int>(960, 0, 2560);
-        [Menu("Position Y")]
+        [Menu("Arrow Position Y")]
         public RangeNode<int> PosY { get; set; } = new RangeNode<int>(540, 0, 1440);
         [Menu("Arrow Size")]
         public RangeNode<int> ArrowSize { get; set; } = new RangeNode<int>(40, 20, 80);
