@@ -1,4 +1,4 @@
-﻿using ExileCore;
+using ExileCore;
 using ExileCore.PoEMemory.MemoryObjects;
 using ExileCore.Shared.Helpers;
 using SharpDX;
@@ -14,6 +14,7 @@ namespace DelveWalls
 
         public override void OnLoad()
         {
+                    Graphics.InitImage("directions.png");
         }
 
         public override bool Initialise()
