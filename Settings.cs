@@ -14,14 +14,18 @@ namespace DelveWalls
         public ColorNode AzuriteColor { get; set; } = new ColorNode(Color.Blue);
         [Menu("Currency Color")]
         public ColorNode CurrencyColor { get; set; } = new ColorNode(Color.Yellow);
-        [Menu("Unique / Fossil Color")]
-        public ColorNode UniqueFossilColor { get; set; } = new ColorNode(Color.Orange);
+        [Menu("Fossil Color")]
+        public ColorNode FossilColor { get; set; } = new ColorNode(Color.DarkOrange);
+        [Menu("Unique Color")]
+        public ColorNode UniqueColor { get; set; } = new ColorNode(Color.Orange);
         [Menu("Resonator Color")]
         public ColorNode ResColor { get; set; } = new ColorNode(Color.Gray);
         [Menu("Delve Wall Color")]
         public ColorNode WallColor { get; set; } = new ColorNode(Color.Purple);
-        [Menu("Flares / Dynamite Color")]
-        public ColorNode FlaDynColor { get; set; } = new ColorNode(Color.Red);
+        [Menu("Flares Color")]
+        public ColorNode FlareColor { get; set; } = new ColorNode(Color.White);
+        [Menu("Dynamite Color")]
+        public ColorNode DynaColor { get; set; } = new ColorNode(Color.Red);
         [Menu("Arrow Position X")]
         public RangeNode<int> PosX { get; set; } = new RangeNode<int>(960, 0, 2560);
         [Menu("Arrow Position Y")]
